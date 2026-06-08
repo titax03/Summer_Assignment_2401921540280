@@ -1,0 +1,25 @@
+class Solution {
+    public List<Integer> spiralOrder(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        List<Integer> ans = new ArrayList<>();
+        boolean[][] vis = new boolean[m][n];
+        int[] dr = {0, 1, 0, -1}; // right, down, left, up
+        int[] dc = {1, 0, -1, 0};
+        int row = 0, col = 0, dir = 0;
+        for (int i = 0; i < m * n; i++) {
+            ans.add(matrix[row][col]);
+            vis[row][col] = true;
+            int nr = row + dr[dir];
+            int nc = col + dc[dir];
+            if (nr < 0 || nr >= m || nc < 0 || nc >= n || vis[nr][nc]) {
+                dir = (dir + 1) % 4; // change direction
+                nr = row + dr[dir];
+                nc = col + dc[dir];
+            }
+            row = nr;
+            col = nc;
+        }
+        return ans;
+    }
+}
